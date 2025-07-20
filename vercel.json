@@ -1,3 +1,8 @@
 {
-  "version": 2
+    "cron": [
+        {
+            "path": "pages/api/run-batch-model.ts",
+            "schedule": "*/10 * * * * *"
+        }
+    ]
 }
