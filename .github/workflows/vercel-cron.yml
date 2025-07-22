@@ -11,4 +11,4 @@ jobs:
     steps:
       - name: Curl to Vercel endpoint
         run: |
-          curl -s -o /dev/null -w "%{http_code}" https://securefintech.vercel.app/api/run-batch-model
+          curl -s -o /dev/null -w "%{http_code}" https://secure-auth-jsr.vercel.app/api/run-batch-model
