@@ -1,28 +1,30 @@
-// pages/api/run-batch-model.ts
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import { spawn } from 'child_process';
 import path from 'path';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'GET') {
-    return res.status(405).json({ success: false, message: 'Method not allowed' });
-  }
-
+export async function GET(req: NextRequest) {
   try {
     const scriptPath = path.join(process.cwd(), 'scripts', 'batch_model_worker_v2.js');
+    const child = spawn('node', [scriptPath]);
 
-    const child = spawn('node', [scriptPath], {
-      detached: true,
-      stdio: 'ignore',
+    // Capture stdout and stderr
+    child.stdout.on('data', (data) => {
+      console.log(`stdout: ${data}`);
     });
 
-    child.unref();
+    child.stderr.on('data', (data) => {
+      console.error(`stderr: ${data}`);
+    });
 
-    return res.status(200).json({ success: true, message: 'Batch worker started.' });
+    child.on('close', (code) => {
+      console.log(`child process exited with code ${code}`);
+    });
+
+    return NextResponse.json({ success: true, message: 'Batch worker started.' });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      error: (error as Error).message,
-    });
+    return NextResponse.json(
+      { success: false, error: (error as Error).message },
+      { status: 500 }
+    );
   }
 }
