@@ -34,12 +34,12 @@
 
 - **To process a batch once:**
   ```sh
-  node scripts/batch_model_worker.js
+  node scripts/batch_model_worker_v2.js
   ```
 
 - **To run the batch worker automatically every 10 seconds:**
   ```sh
-  node scripts/batch_model_cron.js
+  node scripts/batch_model_cron_v2.js
   ```
 
   - Stop the process with `Ctrl+C` in the terminal.
