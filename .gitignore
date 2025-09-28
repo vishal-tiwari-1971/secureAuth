@@ -19,6 +19,9 @@ yarn-error.log*
 # env files
 .env*
 
+**/*.js
+!*.config.js   # keep config files like tailwind.config.js, next.config.js
+
 # vercel
 .vercel
 
