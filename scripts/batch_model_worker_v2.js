@@ -15,7 +15,7 @@ const fs = require('fs');
 const path = require('path');
 
 // the problem is that model is not running smooth in local also 
-day3 do nothing 
+day4 do nothing 
 
 // Batch size configuration
 const BATCH_SIZE = 10;
